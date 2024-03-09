@@ -1,14 +1,22 @@
 from bs4 import BeautifulSoup
 import requests, openpyxl
 
-def next_page_info(all_div,url):
+def page_info(all_div,url):
+    #print(url)
     l=[]
     for element in all_div:
         row=[]
         next_page_link =  element.find('a').get('href')
         book_name = element.find('img').get('alt')
-        s = requests.get(url + next_page_link)  
+        #print(next_page_link)
+        #print(book_name)
+        url_index = url.find('catalogue') + len('catalogue') 
+        url = url[:url_index]
+        new_url = url +'/'+ next_page_link
+        #print(new_url)
+        s = requests.get(new_url)  
         soup = BeautifulSoup(s.text, 'html.parser')
+        #print(soup.find('table').find_all('tr'))
         table_data = soup.find('table').find_all('tr')
 
         # Adding column name to excel sheet 
