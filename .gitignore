@@ -160,4 +160,4 @@ cython_debug/
 #.idea/
 
 # specific file
-scrap_data.xlsx
+#scrap_data.xlsx
